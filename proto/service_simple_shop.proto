@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package pb;
+
+import "google/api/annotations.proto";
+import "rpc_create_user.proto";
+
+option go_package = "github.com/theme-ce/simple-shop/pb";
+
+service SimpleShop {
+    rpc CreateUser (CreateUserRequest) returns (CreateUserResponse){
+        option (google.api.http) = {
+                  post: "/v1/create_user"
+                  body: "*"
+               };
+    }
+}
