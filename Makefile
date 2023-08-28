@@ -31,4 +31,7 @@ proto:
 	--grpc-gateway_out=pb --grpc-gateway_opt paths=source_relative \
     proto/*.proto
 
+server:
+	go run main.go
+
 .PHONY: postgres createdb dropdb new_migration migrateup migrateup1 migratedown migratedown1 proto
