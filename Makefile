@@ -34,4 +34,7 @@ proto:
 server:
 	go run main.go
 
-.PHONY: postgres createdb dropdb new_migration migrateup migrateup1 migratedown migratedown1 proto
+sqlc:
+	sqlc generate
+
+.PHONY: postgres createdb dropdb new_migration migrateup migrateup1 migratedown migratedown1 proto sqlc
