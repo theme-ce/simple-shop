@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion7
 const (
 	SimpleShop_CreateUser_FullMethodName = "/pb.SimpleShop/CreateUser"
 	SimpleShop_LoginUser_FullMethodName  = "/pb.SimpleShop/LoginUser"
+	SimpleShop_UpdateUser_FullMethodName = "/pb.SimpleShop/UpdateUser"
 )
 
 // SimpleShopClient is the client API for SimpleShop service.
@@ -29,6 +30,7 @@ const (
 type SimpleShopClient interface {
 	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
 	LoginUser(ctx context.Context, in *LoginUserRequest, opts ...grpc.CallOption) (*LoginUserResponse, error)
+	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error)
 }
 
 type simpleShopClient struct {
@@ -57,12 +59,22 @@ func (c *simpleShopClient) LoginUser(ctx context.Context, in *LoginUserRequest, 
 	return out, nil
 }
 
+func (c *simpleShopClient) UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error) {
+	out := new(UpdateUserResponse)
+	err := c.cc.Invoke(ctx, SimpleShop_UpdateUser_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SimpleShopServer is the server API for SimpleShop service.
 // All implementations must embed UnimplementedSimpleShopServer
 // for forward compatibility
 type SimpleShopServer interface {
 	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
 	LoginUser(context.Context, *LoginUserRequest) (*LoginUserResponse, error)
+	UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error)
 	mustEmbedUnimplementedSimpleShopServer()
 }
 
@@ -75,6 +87,9 @@ func (UnimplementedSimpleShopServer) CreateUser(context.Context, *CreateUserRequ
 }
 func (UnimplementedSimpleShopServer) LoginUser(context.Context, *LoginUserRequest) (*LoginUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method LoginUser not implemented")
+}
+func (UnimplementedSimpleShopServer) UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdateUser not implemented")
 }
 func (UnimplementedSimpleShopServer) mustEmbedUnimplementedSimpleShopServer() {}
 
@@ -125,6 +140,24 @@ func _SimpleShop_LoginUser_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SimpleShop_UpdateUser_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(UpdateUserRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SimpleShopServer).UpdateUser(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SimpleShop_UpdateUser_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SimpleShopServer).UpdateUser(ctx, req.(*UpdateUserRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // SimpleShop_ServiceDesc is the grpc.ServiceDesc for SimpleShop service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -139,6 +172,10 @@ var SimpleShop_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "LoginUser",
 			Handler:    _SimpleShop_LoginUser_Handler,
+		},
+		{
+			MethodName: "UpdateUser",
+			Handler:    _SimpleShop_UpdateUser_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

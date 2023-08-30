@@ -7,6 +7,8 @@ package db
 
 import (
 	"context"
+
+	"github.com/jackc/pgx/v5/pgtype"
 )
 
 const createUser = `-- name: CreateUser :one
@@ -60,6 +62,55 @@ WHERE username = $1 LIMIT 1
 
 func (q *Queries) GetUser(ctx context.Context, username string) (User, error) {
 	row := q.db.QueryRow(ctx, getUser, username)
+	var i User
+	err := row.Scan(
+		&i.Username,
+		&i.Email,
+		&i.HashedPassword,
+		&i.FirstName,
+		&i.LastName,
+		&i.Address,
+		&i.PasswordChangedAt,
+		&i.CreatedAt,
+		&i.IsAdmin,
+	)
+	return i, err
+}
+
+const updateUser = `-- name: UpdateUser :one
+UPDATE users
+SET
+  hashed_password = COALESCE($1, hashed_password),
+  password_changed_at = COALESCE($2, password_changed_at),
+  first_name = COALESCE($3, first_name),
+  last_name = COALESCE($4, last_name),
+  email = COALESCE($5, email),
+  address = COALESCE($6, address)
+WHERE
+  username = $7
+RETURNING username, email, hashed_password, first_name, last_name, address, password_changed_at, created_at, is_admin
+`
+
+type UpdateUserParams struct {
+	HashedPassword    pgtype.Text        `json:"hashed_password"`
+	PasswordChangedAt pgtype.Timestamptz `json:"password_changed_at"`
+	FirstName         pgtype.Text        `json:"first_name"`
+	LastName          pgtype.Text        `json:"last_name"`
+	Email             pgtype.Text        `json:"email"`
+	Address           pgtype.Text        `json:"address"`
+	Username          string             `json:"username"`
+}
+
+func (q *Queries) UpdateUser(ctx context.Context, arg UpdateUserParams) (User, error) {
+	row := q.db.QueryRow(ctx, updateUser,
+		arg.HashedPassword,
+		arg.PasswordChangedAt,
+		arg.FirstName,
+		arg.LastName,
+		arg.Email,
+		arg.Address,
+		arg.Username,
+	)
 	var i User
 	err := row.Scan(
 		&i.Username,
