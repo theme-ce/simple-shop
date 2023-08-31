@@ -23,3 +23,7 @@ RETURNING *;
 -- name: DeleteProduct :exec
 DELETE FROM products
 WHERE id = $1;
+
+-- name: GetProduct :one
+SELECT * FROM products
+WHERE id = $1;
