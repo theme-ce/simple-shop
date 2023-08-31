@@ -19,9 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	SimpleShop_CreateUser_FullMethodName = "/pb.SimpleShop/CreateUser"
-	SimpleShop_LoginUser_FullMethodName  = "/pb.SimpleShop/LoginUser"
-	SimpleShop_UpdateUser_FullMethodName = "/pb.SimpleShop/UpdateUser"
+	SimpleShop_CreateUser_FullMethodName    = "/pb.SimpleShop/CreateUser"
+	SimpleShop_LoginUser_FullMethodName     = "/pb.SimpleShop/LoginUser"
+	SimpleShop_UpdateUser_FullMethodName    = "/pb.SimpleShop/UpdateUser"
+	SimpleShop_CreateProduct_FullMethodName = "/pb.SimpleShop/CreateProduct"
 )
 
 // SimpleShopClient is the client API for SimpleShop service.
@@ -31,6 +32,7 @@ type SimpleShopClient interface {
 	CreateUser(ctx context.Context, in *CreateUserRequest, opts ...grpc.CallOption) (*CreateUserResponse, error)
 	LoginUser(ctx context.Context, in *LoginUserRequest, opts ...grpc.CallOption) (*LoginUserResponse, error)
 	UpdateUser(ctx context.Context, in *UpdateUserRequest, opts ...grpc.CallOption) (*UpdateUserResponse, error)
+	CreateProduct(ctx context.Context, in *CreateProductRequest, opts ...grpc.CallOption) (*CreateProductResponse, error)
 }
 
 type simpleShopClient struct {
@@ -68,6 +70,15 @@ func (c *simpleShopClient) UpdateUser(ctx context.Context, in *UpdateUserRequest
 	return out, nil
 }
 
+func (c *simpleShopClient) CreateProduct(ctx context.Context, in *CreateProductRequest, opts ...grpc.CallOption) (*CreateProductResponse, error) {
+	out := new(CreateProductResponse)
+	err := c.cc.Invoke(ctx, SimpleShop_CreateProduct_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SimpleShopServer is the server API for SimpleShop service.
 // All implementations must embed UnimplementedSimpleShopServer
 // for forward compatibility
@@ -75,6 +86,7 @@ type SimpleShopServer interface {
 	CreateUser(context.Context, *CreateUserRequest) (*CreateUserResponse, error)
 	LoginUser(context.Context, *LoginUserRequest) (*LoginUserResponse, error)
 	UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error)
+	CreateProduct(context.Context, *CreateProductRequest) (*CreateProductResponse, error)
 	mustEmbedUnimplementedSimpleShopServer()
 }
 
@@ -90,6 +102,9 @@ func (UnimplementedSimpleShopServer) LoginUser(context.Context, *LoginUserReques
 }
 func (UnimplementedSimpleShopServer) UpdateUser(context.Context, *UpdateUserRequest) (*UpdateUserResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateUser not implemented")
+}
+func (UnimplementedSimpleShopServer) CreateProduct(context.Context, *CreateProductRequest) (*CreateProductResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateProduct not implemented")
 }
 func (UnimplementedSimpleShopServer) mustEmbedUnimplementedSimpleShopServer() {}
 
@@ -158,6 +173,24 @@ func _SimpleShop_UpdateUser_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SimpleShop_CreateProduct_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateProductRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SimpleShopServer).CreateProduct(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SimpleShop_CreateProduct_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SimpleShopServer).CreateProduct(ctx, req.(*CreateProductRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // SimpleShop_ServiceDesc is the grpc.ServiceDesc for SimpleShop service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -176,6 +209,10 @@ var SimpleShop_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateUser",
 			Handler:    _SimpleShop_UpdateUser_Handler,
+		},
+		{
+			MethodName: "CreateProduct",
+			Handler:    _SimpleShop_CreateProduct_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

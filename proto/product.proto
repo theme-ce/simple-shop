@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package pb;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/theme-ce/simple-shop/pb";
+
+message Product {
+    string name = 1;
+    string description = 2;
+    int64 price = 3;
+    int64 stock_quantity = 4;
+    google.protobuf.Timestamp created_at = 5;
+}

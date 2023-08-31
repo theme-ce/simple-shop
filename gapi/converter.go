@@ -18,3 +18,13 @@ func convertUser(user db.User) *pb.User {
 		IsAdmin:           user.IsAdmin,
 	}
 }
+
+func convertProduct(product db.Product) *pb.Product {
+	return &pb.Product{
+		Name:          product.Name,
+		Description:   product.Description,
+		Price:         product.Price,
+		StockQuantity: product.StockQuantity,
+		CreatedAt:     timestamppb.New(product.CreatedAt),
+	}
+}

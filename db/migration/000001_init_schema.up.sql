@@ -13,7 +13,7 @@ CREATE TABLE "users" (
 CREATE TABLE "products" (
   "id" bigserial PRIMARY KEY,
   "name" varchar UNIQUE NOT NULL,
-  "description" varchar,
+  "description" varchar NOT NULL,
   "price" bigint NOT NULL,
   "stock_quantity" bigint NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())

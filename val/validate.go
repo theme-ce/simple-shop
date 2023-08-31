@@ -73,3 +73,24 @@ func ValidateAdress(value string) error {
 	}
 	return nil
 }
+
+func ValidateProductName(value string) error {
+	if err := ValidateString(value, 2, 100); err != nil {
+		return err
+	}
+	return nil
+}
+
+func ValidateProductPrice(value int) error {
+	if value < 0 {
+		return fmt.Errorf("product price cannot below 0")
+	}
+	return nil
+}
+
+func ValidateProductQuantity(value int) error {
+	if value < 0 {
+		return fmt.Errorf("product product cannot below 0")
+	}
+	return nil
+}
