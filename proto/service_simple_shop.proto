@@ -7,6 +7,7 @@ import "rpc_create_user.proto";
 import "rpc_login_user.proto";
 import "rpc_update_user.proto";
 import "rpc_create_product.proto";
+import "rpc_update_product.proto";
 
 option go_package = "github.com/theme-ce/simple-shop/pb";
 
@@ -32,6 +33,12 @@ service SimpleShop {
     rpc CreateProduct (CreateProductRequest) returns (CreateProductResponse){
         option (google.api.http) = {
                   post: "/v1/create_product"
+                  body: "*"
+               };
+    }
+    rpc UpdateProduct (UpdateProductRequest) returns (UpdateProductResponse){
+        option (google.api.http) = {
+                  post: "/v1/update_product"
                   body: "*"
                };
     }

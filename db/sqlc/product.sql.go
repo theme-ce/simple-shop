@@ -7,6 +7,8 @@ package db
 
 import (
 	"context"
+
+	"github.com/jackc/pgx/v5/pgtype"
 )
 
 const createProduct = `-- name: CreateProduct :one
@@ -34,6 +36,46 @@ func (q *Queries) CreateProduct(ctx context.Context, arg CreateProductParams) (P
 		arg.Description,
 		arg.Price,
 		arg.StockQuantity,
+	)
+	var i Product
+	err := row.Scan(
+		&i.ID,
+		&i.Name,
+		&i.Description,
+		&i.Price,
+		&i.StockQuantity,
+		&i.CreatedAt,
+	)
+	return i, err
+}
+
+const updateProduct = `-- name: UpdateProduct :one
+UPDATE products
+SET
+    name = COALESCE($1, name),
+    description = COALESCE($2, description),
+    price = COALESCE($3, price),
+    stock_quantity = COALESCE($4, stock_quantity)
+WHERE
+    id = $5
+RETURNING id, name, description, price, stock_quantity, created_at
+`
+
+type UpdateProductParams struct {
+	Name          pgtype.Text `json:"name"`
+	Description   pgtype.Text `json:"description"`
+	Price         pgtype.Int8 `json:"price"`
+	StockQuantity pgtype.Int8 `json:"stock_quantity"`
+	ID            int64       `json:"id"`
+}
+
+func (q *Queries) UpdateProduct(ctx context.Context, arg UpdateProductParams) (Product, error) {
+	row := q.db.QueryRow(ctx, updateProduct,
+		arg.Name,
+		arg.Description,
+		arg.Price,
+		arg.StockQuantity,
+		arg.ID,
 	)
 	var i Product
 	err := row.Scan(
