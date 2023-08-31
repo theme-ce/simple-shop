@@ -9,8 +9,8 @@ option go_package = "github.com/theme-ce/simple-shop/pb";
 message CreateProductRequest {
     string name = 1;
     string description = 2;
-    int64 price = 3;
-    int64 stock_quantity = 4;
+    int32 price = 3;
+    int32 stock_quantity = 4;
 }
 
 message CreateProductResponse {

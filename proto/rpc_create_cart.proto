@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "github.com/theme-ce/simple-shop/pb";
+
+message CreateCartRequest {
+    string username = 1;
+}
+
+message CreateCartResponse {
+    int32 cart_id = 1;
+}

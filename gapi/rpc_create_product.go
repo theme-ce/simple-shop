@@ -29,8 +29,8 @@ func (server *Server) CreateProduct(ctx context.Context, req *pb.CreateProductRe
 	arg := db.CreateProductParams{
 		Name:          req.GetName(),
 		Description:   req.GetDescription(),
-		Price:         req.GetPrice(),
-		StockQuantity: req.GetStockQuantity(),
+		Price:         int64(req.GetPrice()),
+		StockQuantity: int64(req.GetStockQuantity()),
 	}
 
 	product, err := server.store.CreateProduct(ctx, arg)

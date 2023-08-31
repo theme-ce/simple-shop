@@ -37,14 +37,14 @@ func (server *Server) UpdateProduct(ctx context.Context, req *pb.UpdateProductRe
 			Valid:  req.Description != nil,
 		},
 		Price: pgtype.Int8{
-			Int64: req.GetPrice(),
+			Int64: int64(req.GetPrice()),
 			Valid: req.Price != nil,
 		},
 		StockQuantity: pgtype.Int8{
-			Int64: req.GetStockQuantity(),
+			Int64: int64(req.GetStockQuantity()),
 			Valid: req.StockQuantity != nil,
 		},
-		ID: req.GetId(),
+		ID: int64(req.GetId()),
 	}
 
 	product, err := server.store.UpdateProduct(ctx, arg)
