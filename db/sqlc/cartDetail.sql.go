@@ -38,6 +38,22 @@ func (q *Queries) CreateCartDetail(ctx context.Context, arg CreateCartDetailPara
 	return i, err
 }
 
+const deleteCartDetail = `-- name: DeleteCartDetail :exec
+DELETE FROM "cartDetails"
+WHERE
+    cart_id = $1 AND product_id = $2
+`
+
+type DeleteCartDetailParams struct {
+	CartID    int64 `json:"cart_id"`
+	ProductID int64 `json:"product_id"`
+}
+
+func (q *Queries) DeleteCartDetail(ctx context.Context, arg DeleteCartDetailParams) error {
+	_, err := q.db.Exec(ctx, deleteCartDetail, arg.CartID, arg.ProductID)
+	return err
+}
+
 const updateCartDetail = `-- name: UpdateCartDetail :one
 UPDATE "cartDetails"
 SET

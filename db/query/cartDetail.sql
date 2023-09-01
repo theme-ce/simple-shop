@@ -15,3 +15,8 @@ SET
 WHERE
     cart_id = $2 AND product_id = $3
 RETURNING *;
+
+-- name: DeleteCartDetail :exec
+DELETE FROM "cartDetails"
+WHERE
+    cart_id = $1 AND product_id = $2;
