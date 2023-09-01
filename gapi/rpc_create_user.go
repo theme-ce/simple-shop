@@ -23,19 +23,23 @@ func (server *Server) CreateUser(ctx context.Context, req *pb.CreateUserRequest)
 		return nil, status.Errorf(codes.Internal, "failed to hash password: %s", err)
 	}
 
-	user, err := server.store.CreateUser(ctx, db.CreateUserParams{
-		Username:       req.Username,
-		HashedPassword: hashedPassword,
-		FirstName:      req.FirstName,
-		LastName:       req.LastName,
-		Email:          req.Email,
-	})
+	arg := db.CreateUserTxParams{
+		CreateUserParams: db.CreateUserParams{
+			Username:       req.GetUsername(),
+			HashedPassword: hashedPassword,
+			FirstName:      req.GetFirstName(),
+			LastName:       req.GetLastName(),
+			Email:          req.GetEmail(),
+		},
+	}
+
+	txResult, err := server.store.CreateUserTx(ctx, arg)
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "cannot create user: %s", err)
 	}
 
 	resp := &pb.CreateUserResponse{
-		User: convertUser(user),
+		User: convertUser(txResult.User),
 	}
 
 	return resp, nil

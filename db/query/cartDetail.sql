@@ -4,6 +4,6 @@ INSERT INTO "cartDetails" (
   product_id,
   quantity_added
 ) VALUES (
-    $1, $2, $2
+    $1, $2, $3
 )
 RETURNING *;

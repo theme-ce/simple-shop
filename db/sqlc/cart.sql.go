@@ -35,13 +35,25 @@ func (q *Queries) DeleteCart(ctx context.Context, username string) error {
 	return err
 }
 
-const getCart = `-- name: GetCart :one
+const getCartByID = `-- name: GetCartByID :one
+SELECT id, username FROM carts
+WHERE id = $1
+`
+
+func (q *Queries) GetCartByID(ctx context.Context, id int64) (Cart, error) {
+	row := q.db.QueryRow(ctx, getCartByID, id)
+	var i Cart
+	err := row.Scan(&i.ID, &i.Username)
+	return i, err
+}
+
+const getCartByUsername = `-- name: GetCartByUsername :one
 SELECT id, username FROM carts
 WHERE username = $1
 `
 
-func (q *Queries) GetCart(ctx context.Context, username string) (Cart, error) {
-	row := q.db.QueryRow(ctx, getCart, username)
+func (q *Queries) GetCartByUsername(ctx context.Context, username string) (Cart, error) {
+	row := q.db.QueryRow(ctx, getCartByUsername, username)
 	var i Cart
 	err := row.Scan(&i.ID, &i.Username)
 	return i, err

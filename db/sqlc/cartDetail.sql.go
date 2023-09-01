@@ -15,18 +15,19 @@ INSERT INTO "cartDetails" (
   product_id,
   quantity_added
 ) VALUES (
-    $1, $2, $2
+    $1, $2, $3
 )
 RETURNING id, cart_id, product_id, quantity_added
 `
 
 type CreateCartDetailParams struct {
-	CartID    int64 `json:"cart_id"`
-	ProductID int64 `json:"product_id"`
+	CartID        int64 `json:"cart_id"`
+	ProductID     int64 `json:"product_id"`
+	QuantityAdded int64 `json:"quantity_added"`
 }
 
 func (q *Queries) CreateCartDetail(ctx context.Context, arg CreateCartDetailParams) (CartDetail, error) {
-	row := q.db.QueryRow(ctx, createCartDetail, arg.CartID, arg.ProductID)
+	row := q.db.QueryRow(ctx, createCartDetail, arg.CartID, arg.ProductID, arg.QuantityAdded)
 	var i CartDetail
 	err := row.Scan(
 		&i.ID,

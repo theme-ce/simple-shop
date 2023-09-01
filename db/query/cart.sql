@@ -6,7 +6,11 @@ INSERT INTO carts (
 )
 RETURNING *;
 
--- name: GetCart :one
+-- name: GetCartByID :one
+SELECT * FROM carts
+WHERE id = $1;
+
+-- name: GetCartByUsername :one
 SELECT * FROM carts
 WHERE username = $1;
 
