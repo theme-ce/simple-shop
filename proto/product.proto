@@ -13,3 +13,38 @@ message Product {
     int32 stock_quantity = 4;
     google.protobuf.Timestamp created_at = 5;
 }
+
+// Create product
+message CreateProductRequest {
+    string name = 1;
+    string description = 2;
+    int32 price = 3;
+    int32 stock_quantity = 4;
+}
+
+message CreateProductResponse {
+    Product product = 1;
+}
+
+// Delete product
+message DeleteProductRequest {
+    int64 id = 1;
+}
+
+message DeleteProductResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+// Update product
+message UpdateProductRequest {
+    int32 id = 1;
+    optional string name = 2;
+    optional string description = 3;
+    optional int32 price = 4;
+    optional int32 stock_quantity = 5;
+}
+
+message UpdateProductResponse {
+    Product product = 1;
+}

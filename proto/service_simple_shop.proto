@@ -3,13 +3,10 @@ syntax = "proto3";
 package pb;
 
 import "google/api/annotations.proto";
-import "rpc_create_user.proto";
-import "rpc_login_user.proto";
-import "rpc_update_user.proto";
-import "rpc_create_product.proto";
-import "rpc_update_product.proto";
-import "rpc_delete_product.proto";
-import "rpc_create_cart.proto";
+import "user.proto";
+import "product.proto";
+import "cart.proto";
+import "cartDetail.proto";
 
 option go_package = "github.com/theme-ce/simple-shop/pb";
 
@@ -52,6 +49,29 @@ service SimpleShop {
     rpc CreateCart (CreateCartRequest) returns (CreateCartResponse){
         option (google.api.http) = {
             post: "/v1/create_cart"
+            body: "*"
+        };
+    }
+    rpc DeleteCart (DeleteCartRequest) returns (DeleteCartResponse){
+        option (google.api.http) = {
+            delete: "/v1/delete_cart/{username}"
+         };
+    }
+    rpc AddCartItem (AddCartItemRequest) returns (AddCartItemResponse){
+        option (google.api.http) = {
+            post: "/v1/add_cart_item"
+            body: "*"
+        };
+    }
+    rpc UpdateCartItemQuantity (UpdateCartItemQuantityRequest) returns (UpdateCartItemQuantityResponse){
+        option (google.api.http) = {
+            post: "/v1/update_cart_item"
+            body: "*"
+        };
+    }
+    rpc RemoveCartItem (RemoveCartItemRequest) returns (RemoveCartItemResponse){
+        option (google.api.http) = {
+            post: "/v1/remove_cart_item"
             body: "*"
         };
     }

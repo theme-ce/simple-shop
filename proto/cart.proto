@@ -4,10 +4,20 @@ package pb;
 
 option go_package = "github.com/theme-ce/simple-shop/pb";
 
+// Create cart
 message CreateCartRequest {
     string username = 1;
 }
 
 message CreateCartResponse {
     int32 cart_id = 1;
+}
+
+// Delete cart
+message DeleteCartRequest {
+    string username = 1;
+}
+
+message DeleteCartResponse {
+    bool success = 1;
 }
