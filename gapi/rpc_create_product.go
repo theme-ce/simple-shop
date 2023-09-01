@@ -29,7 +29,7 @@ func (server *Server) CreateProduct(ctx context.Context, req *pb.CreateProductRe
 	arg := db.CreateProductParams{
 		Name:          req.GetName(),
 		Description:   req.GetDescription(),
-		Price:         int64(req.GetPrice()),
+		Price:         float64(req.GetPrice()),
 		StockQuantity: int64(req.GetStockQuantity()),
 	}
 

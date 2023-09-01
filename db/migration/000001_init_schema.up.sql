@@ -14,7 +14,7 @@ CREATE TABLE "products" (
   "id" bigserial PRIMARY KEY,
   "name" varchar UNIQUE NOT NULL,
   "description" varchar NOT NULL,
-  "price" bigint NOT NULL,
+  "price" double precision NOT NULL,
   "stock_quantity" bigint NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
@@ -22,7 +22,7 @@ CREATE TABLE "products" (
 CREATE TABLE "orders" (
   "id" bigserial PRIMARY KEY,
   "username" varchar NOT NULL,
-  "total_price" bigint NOT NULL,
+  "total_price" double precision NOT NULL,
   "status" varchar NOT NULL,
   "created_at" timestamptz NOT NULL DEFAULT (now())
 );
@@ -32,7 +32,7 @@ CREATE TABLE "orderDetails" (
   "product_id" bigint NOT NULL,
   "username" varchar NOT NULL,
   "quantity_ordered" bigint NOT NULL,
-  "price_at_time_of_order" bigint NOT NULL
+  "price_at_time_of_order" double precision NOT NULL
 );
 
 CREATE TABLE "carts" (

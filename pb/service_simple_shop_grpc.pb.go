@@ -30,6 +30,7 @@ const (
 	SimpleShop_AddCartItem_FullMethodName            = "/pb.SimpleShop/AddCartItem"
 	SimpleShop_UpdateCartItemQuantity_FullMethodName = "/pb.SimpleShop/UpdateCartItemQuantity"
 	SimpleShop_RemoveCartItem_FullMethodName         = "/pb.SimpleShop/RemoveCartItem"
+	SimpleShop_CreateOrder_FullMethodName            = "/pb.SimpleShop/CreateOrder"
 )
 
 // SimpleShopClient is the client API for SimpleShop service.
@@ -47,6 +48,7 @@ type SimpleShopClient interface {
 	AddCartItem(ctx context.Context, in *AddCartItemRequest, opts ...grpc.CallOption) (*AddCartItemResponse, error)
 	UpdateCartItemQuantity(ctx context.Context, in *UpdateCartItemQuantityRequest, opts ...grpc.CallOption) (*UpdateCartItemQuantityResponse, error)
 	RemoveCartItem(ctx context.Context, in *RemoveCartItemRequest, opts ...grpc.CallOption) (*RemoveCartItemResponse, error)
+	CreateOrder(ctx context.Context, in *CreateOrderRequest, opts ...grpc.CallOption) (*CreateOrderResponse, error)
 }
 
 type simpleShopClient struct {
@@ -156,6 +158,15 @@ func (c *simpleShopClient) RemoveCartItem(ctx context.Context, in *RemoveCartIte
 	return out, nil
 }
 
+func (c *simpleShopClient) CreateOrder(ctx context.Context, in *CreateOrderRequest, opts ...grpc.CallOption) (*CreateOrderResponse, error) {
+	out := new(CreateOrderResponse)
+	err := c.cc.Invoke(ctx, SimpleShop_CreateOrder_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SimpleShopServer is the server API for SimpleShop service.
 // All implementations must embed UnimplementedSimpleShopServer
 // for forward compatibility
@@ -171,6 +182,7 @@ type SimpleShopServer interface {
 	AddCartItem(context.Context, *AddCartItemRequest) (*AddCartItemResponse, error)
 	UpdateCartItemQuantity(context.Context, *UpdateCartItemQuantityRequest) (*UpdateCartItemQuantityResponse, error)
 	RemoveCartItem(context.Context, *RemoveCartItemRequest) (*RemoveCartItemResponse, error)
+	CreateOrder(context.Context, *CreateOrderRequest) (*CreateOrderResponse, error)
 	mustEmbedUnimplementedSimpleShopServer()
 }
 
@@ -210,6 +222,9 @@ func (UnimplementedSimpleShopServer) UpdateCartItemQuantity(context.Context, *Up
 }
 func (UnimplementedSimpleShopServer) RemoveCartItem(context.Context, *RemoveCartItemRequest) (*RemoveCartItemResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RemoveCartItem not implemented")
+}
+func (UnimplementedSimpleShopServer) CreateOrder(context.Context, *CreateOrderRequest) (*CreateOrderResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateOrder not implemented")
 }
 func (UnimplementedSimpleShopServer) mustEmbedUnimplementedSimpleShopServer() {}
 
@@ -422,6 +437,24 @@ func _SimpleShop_RemoveCartItem_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SimpleShop_CreateOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateOrderRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SimpleShopServer).CreateOrder(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SimpleShop_CreateOrder_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SimpleShopServer).CreateOrder(ctx, req.(*CreateOrderRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // SimpleShop_ServiceDesc is the grpc.ServiceDesc for SimpleShop service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -472,6 +505,10 @@ var SimpleShop_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RemoveCartItem",
 			Handler:    _SimpleShop_RemoveCartItem_Handler,
+		},
+		{
+			MethodName: "CreateOrder",
+			Handler:    _SimpleShop_CreateOrder_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

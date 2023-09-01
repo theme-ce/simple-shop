@@ -7,6 +7,7 @@ import "user.proto";
 import "product.proto";
 import "cart.proto";
 import "cartDetail.proto";
+import "order.proto";
 
 option go_package = "github.com/theme-ce/simple-shop/pb";
 
@@ -72,6 +73,12 @@ service SimpleShop {
     rpc RemoveCartItem (RemoveCartItemRequest) returns (RemoveCartItemResponse){
         option (google.api.http) = {
             post: "/v1/remove_cart_item"
+            body: "*"
+        };
+    }
+    rpc CreateOrder (CreateOrderRequest) returns (CreateOrderResponse){
+        option (google.api.http) = {
+            post: "/v1/create_order"
             body: "*"
         };
     }

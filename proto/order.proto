@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "github.com/theme-ce/simple-shop/pb";
+
+// Create order
+message CreateOrderRequest {
+    string username = 1;
+}
+
+message CreateOrderResponse {
+    float total_price = 1;
+    string status = 2;
+}

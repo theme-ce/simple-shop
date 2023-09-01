@@ -11,8 +11,11 @@ import (
 )
 
 type Querier interface {
+	ClearCart(ctx context.Context, cartID int64) error
 	CreateCart(ctx context.Context, username string) (Cart, error)
 	CreateCartDetail(ctx context.Context, arg CreateCartDetailParams) (CartDetail, error)
+	CreateOrder(ctx context.Context, arg CreateOrderParams) (Order, error)
+	CreateOrderDetail(ctx context.Context, arg CreateOrderDetailParams) (OrderDetail, error)
 	CreateProduct(ctx context.Context, arg CreateProductParams) (Product, error)
 	CreateSession(ctx context.Context, arg CreateSessionParams) (Session, error)
 	CreateUser(ctx context.Context, arg CreateUserParams) (User, error)
@@ -21,6 +24,7 @@ type Querier interface {
 	DeleteProduct(ctx context.Context, id int64) error
 	GetCartByID(ctx context.Context, id int64) (Cart, error)
 	GetCartByUsername(ctx context.Context, username string) (Cart, error)
+	GetCartDetailsByCartID(ctx context.Context, cartID int64) ([]CartDetail, error)
 	GetProduct(ctx context.Context, id int64) (Product, error)
 	GetSession(ctx context.Context, id uuid.UUID) (Session, error)
 	GetUser(ctx context.Context, username string) (User, error)

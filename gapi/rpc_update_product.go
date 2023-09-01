@@ -36,9 +36,9 @@ func (server *Server) UpdateProduct(ctx context.Context, req *pb.UpdateProductRe
 			String: req.GetDescription(),
 			Valid:  req.Description != nil,
 		},
-		Price: pgtype.Int8{
-			Int64: int64(req.GetPrice()),
-			Valid: req.Price != nil,
+		Price: pgtype.Float8{
+			Float64: float64(req.GetPrice()),
+			Valid:   req.Price != nil,
 		},
 		StockQuantity: pgtype.Int8{
 			Int64: int64(req.GetStockQuantity()),

@@ -26,24 +26,24 @@ type CartDetail struct {
 type Order struct {
 	ID         int64     `json:"id"`
 	Username   string    `json:"username"`
-	TotalPrice int64     `json:"total_price"`
+	TotalPrice float64   `json:"total_price"`
 	Status     string    `json:"status"`
 	CreatedAt  time.Time `json:"created_at"`
 }
 
 type OrderDetail struct {
-	ID                 int64  `json:"id"`
-	ProductID          int64  `json:"product_id"`
-	Username           string `json:"username"`
-	QuantityOrdered    int64  `json:"quantity_ordered"`
-	PriceAtTimeOfOrder int64  `json:"price_at_time_of_order"`
+	ID                 int64   `json:"id"`
+	ProductID          int64   `json:"product_id"`
+	Username           string  `json:"username"`
+	QuantityOrdered    int64   `json:"quantity_ordered"`
+	PriceAtTimeOfOrder float64 `json:"price_at_time_of_order"`
 }
 
 type Product struct {
 	ID            int64     `json:"id"`
 	Name          string    `json:"name"`
 	Description   string    `json:"description"`
-	Price         int64     `json:"price"`
+	Price         float64   `json:"price"`
 	StockQuantity int64     `json:"stock_quantity"`
 	CreatedAt     time.Time `json:"created_at"`
 }
