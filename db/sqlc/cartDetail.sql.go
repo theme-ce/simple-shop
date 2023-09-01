@@ -11,9 +11,9 @@ import (
 
 const createCartDetail = `-- name: CreateCartDetail :one
 INSERT INTO "cartDetails" (
-  cart_id,
-  product_id,
-  quantity_added
+    cart_id,
+    product_id,
+    quantity_added
 ) VALUES (
     $1, $2, $3
 )
@@ -28,6 +28,33 @@ type CreateCartDetailParams struct {
 
 func (q *Queries) CreateCartDetail(ctx context.Context, arg CreateCartDetailParams) (CartDetail, error) {
 	row := q.db.QueryRow(ctx, createCartDetail, arg.CartID, arg.ProductID, arg.QuantityAdded)
+	var i CartDetail
+	err := row.Scan(
+		&i.ID,
+		&i.CartID,
+		&i.ProductID,
+		&i.QuantityAdded,
+	)
+	return i, err
+}
+
+const updateCartDetail = `-- name: UpdateCartDetail :one
+UPDATE "cartDetails"
+SET
+    quantity_added = $1
+WHERE
+    cart_id = $2 AND product_id = $3
+RETURNING id, cart_id, product_id, quantity_added
+`
+
+type UpdateCartDetailParams struct {
+	QuantityAdded int64 `json:"quantity_added"`
+	CartID        int64 `json:"cart_id"`
+	ProductID     int64 `json:"product_id"`
+}
+
+func (q *Queries) UpdateCartDetail(ctx context.Context, arg UpdateCartDetailParams) (CartDetail, error) {
+	row := q.db.QueryRow(ctx, updateCartDetail, arg.QuantityAdded, arg.CartID, arg.ProductID)
 	var i CartDetail
 	err := row.Scan(
 		&i.ID,
