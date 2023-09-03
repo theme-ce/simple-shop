@@ -29,8 +29,7 @@ func (server *Server) CreateOrder(ctx context.Context, req *pb.CreateOrderReques
 	}
 
 	rsp := &pb.CreateOrderResponse{
-		TotalPrice: float32(txResult.Order.TotalPrice),
-		Status:     txResult.Order.Status,
+		Order: convertOrder(txResult.Order),
 	}
 	return rsp, nil
 }

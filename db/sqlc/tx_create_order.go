@@ -2,6 +2,7 @@ package db
 
 import (
 	"context"
+	"fmt"
 )
 
 type CreateOrderTxParams struct {
@@ -26,6 +27,10 @@ func (store *SQLStore) CreateOrderTx(ctx context.Context, arg CreateOrderTxParam
 		cartDetails, err := store.GetCartDetailsByCartID(ctx, cart.ID)
 		if err != nil {
 			return err
+		}
+
+		if len(cartDetails) == 0 {
+			return fmt.Errorf("failed to create order, nothing in cart")
 		}
 
 		totalPrice := 0.0
@@ -60,6 +65,7 @@ func (store *SQLStore) CreateOrderTx(ctx context.Context, arg CreateOrderTxParam
 				Username:           arg.Username,
 				QuantityOrdered:    item.QuantityAdded,
 				PriceAtTimeOfOrder: product.Price,
+				OrderID:            result.Order.ID,
 			})
 			if err != nil {
 				return err

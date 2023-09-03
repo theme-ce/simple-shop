@@ -37,9 +37,9 @@ func (server *Server) AddCartItem(ctx context.Context, req *pb.AddCartItemReques
 
 	rsp := &pb.AddCartItemResponse{
 		Success:       true,
-		CartId:        int32(cartDetail.CartID),
-		ProductId:     int32(cartDetail.ProductID),
-		QuantityAdded: int32(cartDetail.QuantityAdded),
+		CartId:        cartDetail.CartID,
+		ProductId:     cartDetail.ProductID,
+		QuantityAdded: cartDetail.QuantityAdded,
 	}
 	return rsp, nil
 }

@@ -9,8 +9,8 @@ option go_package = "github.com/theme-ce/simple-shop/pb";
 message Product {
     string name = 1;
     string description = 2;
-    int32 price = 3;
-    int32 stock_quantity = 4;
+    double price = 3;
+    int64 stock_quantity = 4;
     google.protobuf.Timestamp created_at = 5;
 }
 
@@ -18,8 +18,8 @@ message Product {
 message CreateProductRequest {
     string name = 1;
     string description = 2;
-    int32 price = 3;
-    int32 stock_quantity = 4;
+    double price = 3;
+    int64 stock_quantity = 4;
 }
 
 message CreateProductResponse {
@@ -38,11 +38,11 @@ message DeleteProductResponse {
 
 // Update product
 message UpdateProductRequest {
-    int32 id = 1;
+    int64 id = 1;
     optional string name = 2;
     optional string description = 3;
-    optional int32 price = 4;
-    optional int32 stock_quantity = 5;
+    optional float price = 4;
+    optional int64 stock_quantity = 5;
 }
 
 message UpdateProductResponse {

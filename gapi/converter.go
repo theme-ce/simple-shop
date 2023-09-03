@@ -23,8 +23,17 @@ func convertProduct(product db.Product) *pb.Product {
 	return &pb.Product{
 		Name:          product.Name,
 		Description:   product.Description,
-		Price:         int32(product.Price),
-		StockQuantity: int32(product.StockQuantity),
+		Price:         product.Price,
+		StockQuantity: product.StockQuantity,
 		CreatedAt:     timestamppb.New(product.CreatedAt),
+	}
+}
+
+func convertOrder(order db.Order) *pb.Order {
+	return &pb.Order{
+		Id:         order.ID,
+		Username:   order.Username,
+		TotalPrice: order.TotalPrice,
+		Status:     order.Status,
 	}
 }

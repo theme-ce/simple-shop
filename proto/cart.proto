@@ -10,7 +10,7 @@ message CreateCartRequest {
 }
 
 message CreateCartResponse {
-    int32 cart_id = 1;
+    int64 cart_id = 1;
 }
 
 // Delete cart

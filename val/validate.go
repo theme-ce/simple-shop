@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"net/mail"
 	"regexp"
+
+	"github.com/theme-ce/simple-shop/util"
 )
 
 var (
@@ -91,6 +93,13 @@ func ValidateProductPrice(value int) error {
 func ValidateProductQuantity(value int) error {
 	if value < 0 {
 		return fmt.Errorf("product product cannot below 0")
+	}
+	return nil
+}
+
+func ValidateOrderStatus(value string) error {
+	if !util.IsSupportedOrderStatus(value) {
+		return fmt.Errorf("order status string: %s is not supported", value)
 	}
 	return nil
 }

@@ -14,12 +14,13 @@ INSERT INTO "orderDetails" (
     product_id,
     username,
     quantity_ordered,
-    price_at_time_of_order
+    price_at_time_of_order,
+    order_id
 ) 
 VALUES (
-    $1, $2, $3, $4
+    $1, $2, $3, $4, $5
 )
-RETURNING id, product_id, username, quantity_ordered, price_at_time_of_order
+RETURNING id, product_id, username, quantity_ordered, price_at_time_of_order, order_id
 `
 
 type CreateOrderDetailParams struct {
@@ -27,6 +28,7 @@ type CreateOrderDetailParams struct {
 	Username           string  `json:"username"`
 	QuantityOrdered    int64   `json:"quantity_ordered"`
 	PriceAtTimeOfOrder float64 `json:"price_at_time_of_order"`
+	OrderID            int64   `json:"order_id"`
 }
 
 func (q *Queries) CreateOrderDetail(ctx context.Context, arg CreateOrderDetailParams) (OrderDetail, error) {
@@ -35,6 +37,7 @@ func (q *Queries) CreateOrderDetail(ctx context.Context, arg CreateOrderDetailPa
 		arg.Username,
 		arg.QuantityOrdered,
 		arg.PriceAtTimeOfOrder,
+		arg.OrderID,
 	)
 	var i OrderDetail
 	err := row.Scan(
@@ -43,6 +46,7 @@ func (q *Queries) CreateOrderDetail(ctx context.Context, arg CreateOrderDetailPa
 		&i.Username,
 		&i.QuantityOrdered,
 		&i.PriceAtTimeOfOrder,
+		&i.OrderID,
 	)
 	return i, err
 }

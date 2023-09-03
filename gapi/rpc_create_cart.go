@@ -31,7 +31,7 @@ func (server *Server) CreateCart(ctx context.Context, req *pb.CreateCartRequest)
 	}
 
 	rsp := &pb.CreateCartResponse{
-		CartId: int32(cart.ID),
+		CartId: cart.ID,
 	}
 	return rsp, nil
 }

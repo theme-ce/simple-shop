@@ -37,6 +37,7 @@ type OrderDetail struct {
 	Username           string  `json:"username"`
 	QuantityOrdered    int64   `json:"quantity_ordered"`
 	PriceAtTimeOfOrder float64 `json:"price_at_time_of_order"`
+	OrderID            int64   `json:"order_id"`
 }
 
 type Product struct {
