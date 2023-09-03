@@ -27,8 +27,42 @@ Docker: Containerization and dependency management
     brew install sqlc
     ```
 
-### How to run server
-go into project directory and type "make server" in the terminal
+### Installing
+Clone the repository
+```bash
+git clone https://github.com/your_username/simple-shop.git
+```
+
+Navigate to the project directory
+```bash
+cd simple-shop
+```
+### Setting up the Database
+Start the PostgreSQL Docker container
+```bash
+make postgres
+```
+
+Create the database
+```bash
+make createdb
+```
+
+Run migrations
+```bash
+make migrateup
+```
+
+Running the Server
+Generate SQL and Protobuf Code
+```bash
+make sqlc proto
+```
+
+Start the server
+```bash
+make server
+```
 
 ### Database Schema
 The database schema is available for public viewing at [Dbdocs](https://dbdocs.io/thaithian1999/simple_shop).
