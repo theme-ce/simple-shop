@@ -2,10 +2,10 @@
 This is my portfolio project that simulates the backend operations of a simple e-commerce platform. It's built using Golang, and leverages gRPC and gRPC-Gateway for efficient, strongly-typed, and easily-scalable API endpoints.
 
 ### Technologies Used
-Golang: Backend implementation
-gRPC: API design and communication
-gRPC-Gateway: To expose the gRPC API over HTTP/REST
-PostgreSQL: Database
+Golang: Backend implementation <br />
+gRPC: API design and communication <br />
+gRPC-Gateway: To expose the gRPC API over HTTP/REST <br />
+PostgreSQL: Database <br />
 Docker: Containerization and dependency management
 
 ### Install tools
