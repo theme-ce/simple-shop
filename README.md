@@ -1,5 +1,5 @@
-# simple-shop
-This project simulates the backend operations of a simple e-commerce platform. It's built using Golang, and leverages gRPC and gRPC-Gateway for efficient, strongly-typed, and easily-scalable API endpoints.
+# Simple Shop
+This is my portfolio project that simulates the backend operations of a simple e-commerce platform. It's built using Golang, and leverages gRPC and gRPC-Gateway for efficient, strongly-typed, and easily-scalable API endpoints.
 
 ### Technologies Used
 Golang: Backend implementation
