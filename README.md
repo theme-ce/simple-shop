@@ -30,13 +30,14 @@ Docker: Containerization and dependency management
 ### Installing
 Clone the repository
 ```bash
-git clone https://github.com/your_username/simple-shop.git
+git clone https://github.com/theme-ce/simple-shop.git
 ```
 
 Navigate to the project directory
 ```bash
 cd simple-shop
 ```
+
 ### Setting up the Database
 Start the PostgreSQL Docker container
 ```bash
