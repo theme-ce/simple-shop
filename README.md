@@ -27,6 +27,9 @@ Docker: Containerization and dependency management
     brew install sqlc
     ```
 
+### How to run server
+go into project directory and type "make server" in the terminal
+
 ### Database Schema
 The database schema is available for public viewing at [Dbdocs](https://dbdocs.io/thaithian1999/simple_shop).
 
