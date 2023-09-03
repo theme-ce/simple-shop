@@ -1,0 +1,959 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Simple Shop API",
+    "version": "1.0",
+    "contact": {
+      "name": "theme-ce",
+      "url": "https://github.com/theme-ce",
+      "email": "thaithian1999@gmail.com"
+    }
+  },
+  "tags": [
+    {
+      "name": "SimpleShop"
+    }
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/v1/add_cart_item": {
+      "post": {
+        "summary": "Add Cart Item",
+        "description": "Use this API to add an item to a cart",
+        "operationId": "SimpleShop_AddCartItem",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbAddCartItemResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbAddCartItemRequest"
+            }
+          }
+        ],
+        "tags": [
+          "SimpleShop"
+        ]
+      }
+    },
+    "/v1/create_cart": {
+      "post": {
+        "summary": "Create New Cart",
+        "description": "Use this API to create a new cart",
+        "operationId": "SimpleShop_CreateCart",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbCreateCartResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbCreateCartRequest"
+            }
+          }
+        ],
+        "tags": [
+          "SimpleShop"
+        ]
+      }
+    },
+    "/v1/create_order": {
+      "post": {
+        "summary": "Create Order",
+        "description": "Use this API to create order from a cart",
+        "operationId": "SimpleShop_CreateOrder",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbCreateOrderResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbCreateOrderRequest"
+            }
+          }
+        ],
+        "tags": [
+          "SimpleShop"
+        ]
+      }
+    },
+    "/v1/create_product": {
+      "post": {
+        "summary": "Create New Product",
+        "description": "Use this API to create a new product",
+        "operationId": "SimpleShop_CreateProduct",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbCreateProductResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbCreateProductRequest"
+            }
+          }
+        ],
+        "tags": [
+          "SimpleShop"
+        ]
+      }
+    },
+    "/v1/create_user": {
+      "post": {
+        "summary": "Create New User",
+        "description": "Use this API to create a new user",
+        "operationId": "SimpleShop_CreateUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbCreateUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbCreateUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "SimpleShop"
+        ]
+      }
+    },
+    "/v1/delete_cart/{username}": {
+      "delete": {
+        "summary": "Delete Cart",
+        "description": "Use this API to delete a cart",
+        "operationId": "SimpleShop_DeleteCart",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbDeleteCartResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "SimpleShop"
+        ]
+      }
+    },
+    "/v1/delete_product/{id}": {
+      "delete": {
+        "summary": "Delete Product",
+        "description": "Use this API to delete a product",
+        "operationId": "SimpleShop_DeleteProduct",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbDeleteProductResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "format": "int64"
+          }
+        ],
+        "tags": [
+          "SimpleShop"
+        ]
+      }
+    },
+    "/v1/get_cart_items/{username}": {
+      "get": {
+        "summary": "Get Cart Items",
+        "description": "Use this API to get a new cart items",
+        "operationId": "SimpleShop_GetCartItems",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbGetCartItemsResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "username",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "SimpleShop"
+        ]
+      }
+    },
+    "/v1/login_user": {
+      "post": {
+        "summary": "Login User",
+        "description": "Use this API to login user",
+        "operationId": "SimpleShop_LoginUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbLoginUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbLoginUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "SimpleShop"
+        ]
+      }
+    },
+    "/v1/remove_cart_item": {
+      "post": {
+        "summary": "Remove cart item",
+        "description": "Use this API to remove an item from a cart",
+        "operationId": "SimpleShop_RemoveCartItem",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbRemoveCartItemResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbRemoveCartItemRequest"
+            }
+          }
+        ],
+        "tags": [
+          "SimpleShop"
+        ]
+      }
+    },
+    "/v1/update_cart_item": {
+      "post": {
+        "summary": "Update Cart Item",
+        "description": "Use this API to update cart item in a cart",
+        "operationId": "SimpleShop_UpdateCartItemQuantity",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbUpdateCartItemQuantityResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbUpdateCartItemQuantityRequest"
+            }
+          }
+        ],
+        "tags": [
+          "SimpleShop"
+        ]
+      }
+    },
+    "/v1/update_order": {
+      "post": {
+        "summary": "Update Order Status",
+        "description": "Use this API to update an order status",
+        "operationId": "SimpleShop_UpdateOrderStatus",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbUpdateOrderResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbUpdateOrderRequest"
+            }
+          }
+        ],
+        "tags": [
+          "SimpleShop"
+        ]
+      }
+    },
+    "/v1/update_product": {
+      "post": {
+        "summary": "Update Product",
+        "description": "Use this API to update product's info",
+        "operationId": "SimpleShop_UpdateProduct",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbUpdateProductResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbUpdateProductRequest"
+            }
+          }
+        ],
+        "tags": [
+          "SimpleShop"
+        ]
+      }
+    },
+    "/v1/update_user": {
+      "post": {
+        "summary": "Update User",
+        "description": "Use this API to update user's info",
+        "operationId": "SimpleShop_UpdateUser",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbUpdateUserResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbUpdateUserRequest"
+            }
+          }
+        ],
+        "tags": [
+          "SimpleShop"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "pbAddCartItemRequest": {
+      "type": "object",
+      "properties": {
+        "cartId": {
+          "type": "string",
+          "format": "int64"
+        },
+        "productId": {
+          "type": "string",
+          "format": "int64"
+        },
+        "quantityAdded": {
+          "type": "string",
+          "format": "int64"
+        }
+      },
+      "title": "Add item to cart"
+    },
+    "pbAddCartItemResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "cartId": {
+          "type": "string",
+          "format": "int64"
+        },
+        "productId": {
+          "type": "string",
+          "format": "int64"
+        },
+        "quantityAdded": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "pbCartItem": {
+      "type": "object",
+      "properties": {
+        "productId": {
+          "type": "string",
+          "format": "int64"
+        },
+        "productName": {
+          "type": "string"
+        },
+        "productDescription": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number",
+          "format": "double"
+        },
+        "quantity": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "pbCreateCartRequest": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        }
+      },
+      "title": "Create cart"
+    },
+    "pbCreateCartResponse": {
+      "type": "object",
+      "properties": {
+        "cartId": {
+          "type": "string",
+          "format": "int64"
+        }
+      }
+    },
+    "pbCreateOrderRequest": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        }
+      },
+      "title": "Create order"
+    },
+    "pbCreateOrderResponse": {
+      "type": "object",
+      "properties": {
+        "order": {
+          "$ref": "#/definitions/pbOrder"
+        }
+      }
+    },
+    "pbCreateProductRequest": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number",
+          "format": "double"
+        },
+        "stockQuantity": {
+          "type": "string",
+          "format": "int64"
+        }
+      },
+      "title": "Create product"
+    },
+    "pbCreateProductResponse": {
+      "type": "object",
+      "properties": {
+        "product": {
+          "$ref": "#/definitions/pbProduct"
+        }
+      }
+    },
+    "pbCreateUserRequest": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "title": "Create user"
+    },
+    "pbCreateUserResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/pbUser"
+        }
+      }
+    },
+    "pbDeleteCartResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        }
+      }
+    },
+    "pbDeleteProductResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "pbGetCartItemsResponse": {
+      "type": "object",
+      "properties": {
+        "cartItems": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/pbCartItem"
+          }
+        }
+      }
+    },
+    "pbLoginUserRequest": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "title": "Login user"
+    },
+    "pbLoginUserResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/pbUser"
+        },
+        "sessionId": {
+          "type": "string"
+        },
+        "accessToken": {
+          "type": "string"
+        },
+        "refreshToken": {
+          "type": "string"
+        },
+        "accessTokenExpiredAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "refreshTokenExpiredAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "pbOrder": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "username": {
+          "type": "string"
+        },
+        "totalPrice": {
+          "type": "number",
+          "format": "double"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "pbProduct": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number",
+          "format": "double"
+        },
+        "stockQuantity": {
+          "type": "string",
+          "format": "int64"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    },
+    "pbRemoveCartItemRequest": {
+      "type": "object",
+      "properties": {
+        "cartId": {
+          "type": "string",
+          "format": "int64"
+        },
+        "productId": {
+          "type": "string",
+          "format": "int64"
+        }
+      },
+      "title": "Remove item from cart"
+    },
+    "pbRemoveCartItemResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        }
+      }
+    },
+    "pbUpdateCartItemQuantityRequest": {
+      "type": "object",
+      "properties": {
+        "cartId": {
+          "type": "string",
+          "format": "int64"
+        },
+        "productId": {
+          "type": "string",
+          "format": "int64"
+        },
+        "newQuantity": {
+          "type": "string",
+          "format": "int64"
+        }
+      },
+      "title": "Update Item Quantity in the Cart"
+    },
+    "pbUpdateCartItemQuantityResponse": {
+      "type": "object",
+      "properties": {
+        "success": {
+          "type": "boolean"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "pbUpdateOrderRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "status": {
+          "type": "string"
+        }
+      },
+      "title": "Update order"
+    },
+    "pbUpdateOrderResponse": {
+      "type": "object",
+      "properties": {
+        "order": {
+          "$ref": "#/definitions/pbOrder"
+        }
+      }
+    },
+    "pbUpdateProductRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "price": {
+          "type": "number",
+          "format": "float"
+        },
+        "stockQuantity": {
+          "type": "string",
+          "format": "int64"
+        }
+      },
+      "title": "Update product"
+    },
+    "pbUpdateProductResponse": {
+      "type": "object",
+      "properties": {
+        "product": {
+          "$ref": "#/definitions/pbProduct"
+        }
+      }
+    },
+    "pbUpdateUserRequest": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        }
+      },
+      "title": "Update user"
+    },
+    "pbUpdateUserResponse": {
+      "type": "object",
+      "properties": {
+        "user": {
+          "$ref": "#/definitions/pbUser"
+        }
+      }
+    },
+    "pbUser": {
+      "type": "object",
+      "properties": {
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "passwordChangedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "isAdmin": {
+          "type": "boolean"
+        }
+      }
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "@type": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": {}
+    },
+    "rpcStatus": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}

@@ -8,32 +8,62 @@ import "product.proto";
 import "cart.proto";
 import "cartDetail.proto";
 import "order.proto";
+import "protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "github.com/theme-ce/simple-shop/pb";
+
+option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_swagger) = {
+    info: {
+        title: "Simple Shop API";
+        version: "1.0";
+        contact: {
+            name: "theme-ce";
+            url: "https://github.com/theme-ce";
+            email: "thaithian1999@gmail.com";
+        };
+    };
+}; 
+
 
 service SimpleShop {
     rpc CreateUser (CreateUserRequest) returns (CreateUserResponse){
         option (google.api.http) = {
-                  post: "/v1/create_user"
-                  body: "*"
-               };
+            post: "/v1/create_user"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            description: "Use this API to create a new user";
+            summary: "Create New User";
+        };
     }
     rpc LoginUser (LoginUserRequest) returns (LoginUserResponse){
         option (google.api.http) = {
             post: "/v1/login_user"
             body: "*"
-         };
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            description: "Use this API to login user";
+            summary: "Login User";
+        };
     }
     rpc UpdateUser (UpdateUserRequest) returns (UpdateUserResponse){
         option (google.api.http) = {
             post: "/v1/update_user"
             body: "*"
-         };
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            description: "Use this API to update user's info";
+            summary: "Update User";
+        };
     }
     rpc CreateProduct (CreateProductRequest) returns (CreateProductResponse){
         option (google.api.http) = {
             post: "/v1/create_product"
             body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            description: "Use this API to create a new product";
+            summary: "Create New Product";
         };
     }
     rpc UpdateProduct (UpdateProductRequest) returns (UpdateProductResponse){
@@ -41,32 +71,56 @@ service SimpleShop {
             post: "/v1/update_product"
             body: "*"
         };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            description: "Use this API to update product's info";
+            summary: "Update Product";
+        };
     }
     rpc DeleteProduct (DeleteProductRequest) returns (DeleteProductResponse){
         option (google.api.http) = {
             delete: "/v1/delete_product/{id}"
-         };
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            description: "Use this API to delete a product";
+            summary: "Delete Product";
+        };
     }
     rpc CreateCart (CreateCartRequest) returns (CreateCartResponse){
         option (google.api.http) = {
             post: "/v1/create_cart"
             body: "*"
         };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            description: "Use this API to create a new cart";
+            summary: "Create New Cart";
+        };
     }
     rpc GetCartItems (GetCartItemsRequest) returns (GetCartItemsResponse){
         option (google.api.http) = {
             get: "/v1/get_cart_items/{username}"
         };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            description: "Use this API to get a new cart items";
+            summary: "Get Cart Items";
+        };
     }
     rpc DeleteCart (DeleteCartRequest) returns (DeleteCartResponse){
         option (google.api.http) = {
             delete: "/v1/delete_cart/{username}"
-         };
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            description: "Use this API to delete a cart";
+            summary: "Delete Cart";
+        };
     }
     rpc AddCartItem (AddCartItemRequest) returns (AddCartItemResponse){
         option (google.api.http) = {
             post: "/v1/add_cart_item"
             body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            description: "Use this API to add an item to a cart";
+            summary: "Add Cart Item";
         };
     }
     rpc UpdateCartItemQuantity (UpdateCartItemQuantityRequest) returns (UpdateCartItemQuantityResponse){
@@ -74,11 +128,19 @@ service SimpleShop {
             post: "/v1/update_cart_item"
             body: "*"
         };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            description: "Use this API to update cart item in a cart";
+            summary: "Update Cart Item";
+        };
     }
     rpc RemoveCartItem (RemoveCartItemRequest) returns (RemoveCartItemResponse){
         option (google.api.http) = {
             post: "/v1/remove_cart_item"
             body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            description: "Use this API to remove an item from a cart";
+            summary: "Remove cart item";
         };
     }
     rpc CreateOrder (CreateOrderRequest) returns (CreateOrderResponse){
@@ -86,11 +148,19 @@ service SimpleShop {
             post: "/v1/create_order"
             body: "*"
         };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            description: "Use this API to create order from a cart";
+            summary: "Create Order";
+        };
     }
     rpc UpdateOrderStatus (UpdateOrderRequest) returns (UpdateOrderResponse){
         option (google.api.http) = {
             post: "/v1/update_order"
             body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            description: "Use this API to update an order status";
+            summary: "Update Order Status";
         };
     }
 }

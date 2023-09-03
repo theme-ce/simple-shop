@@ -1,0 +1,68 @@
+Project simple_shop {
+  database_type: 'PostgreSQL'
+  Note: '''
+    # Simple Shop Database
+  '''
+}
+
+
+Table users as U {
+  username varchar [pk]
+  email varchar [unique, not null]
+  hashed_password varchar [not null]
+  first_name varchar [not null]
+  last_name varchar [not null]
+  address varchar
+  password_changed_at timestamptz [not null, default: '0001-01-01 00:00:00Z']
+  created_at timestamptz [not null, default: `now()`]
+  is_admin boolean [not null, default: false]
+}
+
+Table products as P {
+  id bigserial [pk]
+  name varchar [unique, not null]
+  description varchar [not null]
+  price double [not null]
+  stock_quantity bigint [not null]
+  created_at timestamptz [not null, default: `now()`]
+}
+
+Table orders as O{
+  id bigserial [pk]
+  username varchar [ref: > U.username, not null]
+  total_price double [not null]
+  status varchar [not null]
+  created_at timestamptz [not null, default: `now()`]
+}
+
+Table orderDetails {
+  id bigserial [pk]
+  order_id bigint [ref: > O.id, not null]
+  product_id bigint [ref: > P.id, not null]
+  username varchar [ref: > U.username, not null]
+  quantity_ordered bigint [not null]
+  price_at_time_of_order double [not null]
+}
+
+Table carts as C{
+  id bigserial [pk]
+  username varchar [ref: > U.username, not null]
+}
+
+Table cartDetails {
+  id bigserial [pk]
+  cart_id bigint [ref: > C.id, not null]
+  product_id bigint [ref: > P.id, not null]
+  quantity_added bigint [not null]
+}
+
+Table sessions {
+  id uuid [pk]
+  username varchar [ref: > U.username, not null]
+  refresh_token varchar [not null]
+  user_agent varchar [not null]
+  client_ip varchar [not null]
+  is_blocked boolean [not null, default: false]
+  expired_at timestamptz [not null]
+  created_at timestamptz [not null, default: `now()`]
+}
