@@ -64,6 +64,29 @@ func (q *Queries) DeleteCartDetail(ctx context.Context, arg DeleteCartDetailPara
 	return err
 }
 
+const getCartDetail = `-- name: GetCartDetail :one
+SELECT id, cart_id, product_id, quantity_added FROM "cartDetails"
+WHERE
+    cart_id = $1 AND product_id = $2
+`
+
+type GetCartDetailParams struct {
+	CartID    int64 `json:"cart_id"`
+	ProductID int64 `json:"product_id"`
+}
+
+func (q *Queries) GetCartDetail(ctx context.Context, arg GetCartDetailParams) (CartDetail, error) {
+	row := q.db.QueryRow(ctx, getCartDetail, arg.CartID, arg.ProductID)
+	var i CartDetail
+	err := row.Scan(
+		&i.ID,
+		&i.CartID,
+		&i.ProductID,
+		&i.QuantityAdded,
+	)
+	return i, err
+}
+
 const getCartDetailsByCartID = `-- name: GetCartDetailsByCartID :many
 SELECT id, cart_id, product_id, quantity_added FROM "cartDetails"
 WHERE cart_id = $1

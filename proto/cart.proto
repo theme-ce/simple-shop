@@ -4,6 +4,14 @@ package pb;
 
 option go_package = "github.com/theme-ce/simple-shop/pb";
 
+message CartItem {
+    int64 product_id = 1;
+    string product_name = 2;
+    string product_description = 3;
+    double price = 4;
+    int64 quantity = 5;
+}
+
 // Create cart
 message CreateCartRequest {
     string username = 1;
@@ -20,4 +28,13 @@ message DeleteCartRequest {
 
 message DeleteCartResponse {
     bool success = 1;
+}
+
+// Get items in cart
+message GetCartItemsRequest {
+    string username = 1;
+}
+
+message GetCartItemsResponse {
+    repeated CartItem cart_items = 1;
 }

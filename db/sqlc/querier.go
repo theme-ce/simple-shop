@@ -24,6 +24,7 @@ type Querier interface {
 	DeleteProduct(ctx context.Context, id int64) error
 	GetCartByID(ctx context.Context, id int64) (Cart, error)
 	GetCartByUsername(ctx context.Context, username string) (Cart, error)
+	GetCartDetail(ctx context.Context, arg GetCartDetailParams) (CartDetail, error)
 	GetCartDetailsByCartID(ctx context.Context, cartID int64) ([]CartDetail, error)
 	GetProduct(ctx context.Context, id int64) (Product, error)
 	GetSession(ctx context.Context, id uuid.UUID) (Session, error)

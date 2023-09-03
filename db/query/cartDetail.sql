@@ -20,6 +20,11 @@ RETURNING *;
 SELECT * FROM "cartDetails"
 WHERE cart_id = $1;
 
+-- name: GetCartDetail :one
+SELECT * FROM "cartDetails"
+WHERE
+    cart_id = $1 AND product_id = $2;
+
 -- name: DeleteCartDetail :exec
 DELETE FROM "cartDetails"
 WHERE

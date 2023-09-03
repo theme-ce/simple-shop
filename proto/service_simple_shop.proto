@@ -53,6 +53,11 @@ service SimpleShop {
             body: "*"
         };
     }
+    rpc GetCartItems (GetCartItemsRequest) returns (GetCartItemsResponse){
+        option (google.api.http) = {
+            get: "/v1/get_cart_items/{username}"
+        };
+    }
     rpc DeleteCart (DeleteCartRequest) returns (DeleteCartResponse){
         option (google.api.http) = {
             delete: "/v1/delete_cart/{username}"

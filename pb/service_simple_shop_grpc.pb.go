@@ -26,6 +26,7 @@ const (
 	SimpleShop_UpdateProduct_FullMethodName          = "/pb.SimpleShop/UpdateProduct"
 	SimpleShop_DeleteProduct_FullMethodName          = "/pb.SimpleShop/DeleteProduct"
 	SimpleShop_CreateCart_FullMethodName             = "/pb.SimpleShop/CreateCart"
+	SimpleShop_GetCartItems_FullMethodName           = "/pb.SimpleShop/GetCartItems"
 	SimpleShop_DeleteCart_FullMethodName             = "/pb.SimpleShop/DeleteCart"
 	SimpleShop_AddCartItem_FullMethodName            = "/pb.SimpleShop/AddCartItem"
 	SimpleShop_UpdateCartItemQuantity_FullMethodName = "/pb.SimpleShop/UpdateCartItemQuantity"
@@ -45,6 +46,7 @@ type SimpleShopClient interface {
 	UpdateProduct(ctx context.Context, in *UpdateProductRequest, opts ...grpc.CallOption) (*UpdateProductResponse, error)
 	DeleteProduct(ctx context.Context, in *DeleteProductRequest, opts ...grpc.CallOption) (*DeleteProductResponse, error)
 	CreateCart(ctx context.Context, in *CreateCartRequest, opts ...grpc.CallOption) (*CreateCartResponse, error)
+	GetCartItems(ctx context.Context, in *GetCartItemsRequest, opts ...grpc.CallOption) (*GetCartItemsResponse, error)
 	DeleteCart(ctx context.Context, in *DeleteCartRequest, opts ...grpc.CallOption) (*DeleteCartResponse, error)
 	AddCartItem(ctx context.Context, in *AddCartItemRequest, opts ...grpc.CallOption) (*AddCartItemResponse, error)
 	UpdateCartItemQuantity(ctx context.Context, in *UpdateCartItemQuantityRequest, opts ...grpc.CallOption) (*UpdateCartItemQuantityResponse, error)
@@ -124,6 +126,15 @@ func (c *simpleShopClient) CreateCart(ctx context.Context, in *CreateCartRequest
 	return out, nil
 }
 
+func (c *simpleShopClient) GetCartItems(ctx context.Context, in *GetCartItemsRequest, opts ...grpc.CallOption) (*GetCartItemsResponse, error) {
+	out := new(GetCartItemsResponse)
+	err := c.cc.Invoke(ctx, SimpleShop_GetCartItems_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *simpleShopClient) DeleteCart(ctx context.Context, in *DeleteCartRequest, opts ...grpc.CallOption) (*DeleteCartResponse, error) {
 	out := new(DeleteCartResponse)
 	err := c.cc.Invoke(ctx, SimpleShop_DeleteCart_FullMethodName, in, out, opts...)
@@ -189,6 +200,7 @@ type SimpleShopServer interface {
 	UpdateProduct(context.Context, *UpdateProductRequest) (*UpdateProductResponse, error)
 	DeleteProduct(context.Context, *DeleteProductRequest) (*DeleteProductResponse, error)
 	CreateCart(context.Context, *CreateCartRequest) (*CreateCartResponse, error)
+	GetCartItems(context.Context, *GetCartItemsRequest) (*GetCartItemsResponse, error)
 	DeleteCart(context.Context, *DeleteCartRequest) (*DeleteCartResponse, error)
 	AddCartItem(context.Context, *AddCartItemRequest) (*AddCartItemResponse, error)
 	UpdateCartItemQuantity(context.Context, *UpdateCartItemQuantityRequest) (*UpdateCartItemQuantityResponse, error)
@@ -222,6 +234,9 @@ func (UnimplementedSimpleShopServer) DeleteProduct(context.Context, *DeleteProdu
 }
 func (UnimplementedSimpleShopServer) CreateCart(context.Context, *CreateCartRequest) (*CreateCartResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateCart not implemented")
+}
+func (UnimplementedSimpleShopServer) GetCartItems(context.Context, *GetCartItemsRequest) (*GetCartItemsResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCartItems not implemented")
 }
 func (UnimplementedSimpleShopServer) DeleteCart(context.Context, *DeleteCartRequest) (*DeleteCartResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteCart not implemented")
@@ -380,6 +395,24 @@ func _SimpleShop_CreateCart_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SimpleShop_GetCartItems_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetCartItemsRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SimpleShopServer).GetCartItems(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SimpleShop_GetCartItems_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SimpleShopServer).GetCartItems(ctx, req.(*GetCartItemsRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _SimpleShop_DeleteCart_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(DeleteCartRequest)
 	if err := dec(in); err != nil {
@@ -522,6 +555,10 @@ var SimpleShop_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateCart",
 			Handler:    _SimpleShop_CreateCart_Handler,
+		},
+		{
+			MethodName: "GetCartItems",
+			Handler:    _SimpleShop_GetCartItems_Handler,
 		},
 		{
 			MethodName: "DeleteCart",
