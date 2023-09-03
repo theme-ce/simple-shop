@@ -28,7 +28,7 @@ Docker: Containerization and dependency management
     ```
 
 ### Database Schema
-The database schema is available for public viewing at Dbdocs.
+The database schema is available for public viewing at [Dbdocs](https://dbdocs.io/thaithian1999/simple_shop).
 
 ### API Documentation
 Once the server is running, the API documentation can be accessed through Swagger UI at http://localhost:8080/swagger.
