@@ -8,6 +8,7 @@ import "product.proto";
 import "cart.proto";
 import "cartDetail.proto";
 import "order.proto";
+import "token.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 
 option go_package = "github.com/theme-ce/simple-shop/pb";
@@ -161,6 +162,16 @@ service SimpleShop {
         option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
             description: "Use this API to update an order status";
             summary: "Update Order Status";
+        };
+    }
+    rpc RenewAccessToken (RenewAccessTokenRequest) returns (RenewAccessTokenResponse){
+        option (google.api.http) = {
+            post: "/v1/token/renew_access_token"
+            body: "*"
+        };
+        option (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_operation) = {
+            description: "Use this API to renew access token";
+            summary: "Renew Access Token";
         };
     }
 }

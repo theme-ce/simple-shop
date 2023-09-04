@@ -45,4 +45,7 @@ db_doc:
 db_schema:
 	dbml2sql --postgres -o doc/schema.sql doc/db.dbml
 
-.PHONY: postgres createdb dropdb new_migration migrateup migrateup1 migratedown migratedown1 proto sqlc db_doc db_schema
+mock:
+	mockgen -package mockdb -destination db/mock/store.go github.com/theme-ce/simple-shop/db/sqlc Store
+
+.PHONY: postgres createdb dropdb new_migration migrateup migrateup1 migratedown migratedown1 proto sqlc db_doc db_schema mock

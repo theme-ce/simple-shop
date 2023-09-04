@@ -356,6 +356,40 @@
         ]
       }
     },
+    "/v1/token/renew_access_token": {
+      "post": {
+        "summary": "Renew Access Token",
+        "description": "Use this API to renew access token",
+        "operationId": "SimpleShop_RenewAccessToken",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbRenewAccessTokenResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/rpcStatus"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbRenewAccessTokenRequest"
+            }
+          }
+        ],
+        "tags": [
+          "SimpleShop"
+        ]
+      }
+    },
     "/v1/update_cart_item": {
       "post": {
         "summary": "Update Cart Item",
@@ -779,6 +813,27 @@
       "properties": {
         "success": {
           "type": "boolean"
+        }
+      }
+    },
+    "pbRenewAccessTokenRequest": {
+      "type": "object",
+      "properties": {
+        "RefreshToken": {
+          "type": "string"
+        }
+      },
+      "title": "Renew access token"
+    },
+    "pbRenewAccessTokenResponse": {
+      "type": "object",
+      "properties": {
+        "AccessToken": {
+          "type": "string"
+        },
+        "AccessTokenExpiredAt": {
+          "type": "string",
+          "format": "date-time"
         }
       }
     },

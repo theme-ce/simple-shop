@@ -33,6 +33,7 @@ const (
 	SimpleShop_RemoveCartItem_FullMethodName         = "/pb.SimpleShop/RemoveCartItem"
 	SimpleShop_CreateOrder_FullMethodName            = "/pb.SimpleShop/CreateOrder"
 	SimpleShop_UpdateOrderStatus_FullMethodName      = "/pb.SimpleShop/UpdateOrderStatus"
+	SimpleShop_RenewAccessToken_FullMethodName       = "/pb.SimpleShop/RenewAccessToken"
 )
 
 // SimpleShopClient is the client API for SimpleShop service.
@@ -53,6 +54,7 @@ type SimpleShopClient interface {
 	RemoveCartItem(ctx context.Context, in *RemoveCartItemRequest, opts ...grpc.CallOption) (*RemoveCartItemResponse, error)
 	CreateOrder(ctx context.Context, in *CreateOrderRequest, opts ...grpc.CallOption) (*CreateOrderResponse, error)
 	UpdateOrderStatus(ctx context.Context, in *UpdateOrderRequest, opts ...grpc.CallOption) (*UpdateOrderResponse, error)
+	RenewAccessToken(ctx context.Context, in *RenewAccessTokenRequest, opts ...grpc.CallOption) (*RenewAccessTokenResponse, error)
 }
 
 type simpleShopClient struct {
@@ -189,6 +191,15 @@ func (c *simpleShopClient) UpdateOrderStatus(ctx context.Context, in *UpdateOrde
 	return out, nil
 }
 
+func (c *simpleShopClient) RenewAccessToken(ctx context.Context, in *RenewAccessTokenRequest, opts ...grpc.CallOption) (*RenewAccessTokenResponse, error) {
+	out := new(RenewAccessTokenResponse)
+	err := c.cc.Invoke(ctx, SimpleShop_RenewAccessToken_FullMethodName, in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SimpleShopServer is the server API for SimpleShop service.
 // All implementations must embed UnimplementedSimpleShopServer
 // for forward compatibility
@@ -207,6 +218,7 @@ type SimpleShopServer interface {
 	RemoveCartItem(context.Context, *RemoveCartItemRequest) (*RemoveCartItemResponse, error)
 	CreateOrder(context.Context, *CreateOrderRequest) (*CreateOrderResponse, error)
 	UpdateOrderStatus(context.Context, *UpdateOrderRequest) (*UpdateOrderResponse, error)
+	RenewAccessToken(context.Context, *RenewAccessTokenRequest) (*RenewAccessTokenResponse, error)
 	mustEmbedUnimplementedSimpleShopServer()
 }
 
@@ -255,6 +267,9 @@ func (UnimplementedSimpleShopServer) CreateOrder(context.Context, *CreateOrderRe
 }
 func (UnimplementedSimpleShopServer) UpdateOrderStatus(context.Context, *UpdateOrderRequest) (*UpdateOrderResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateOrderStatus not implemented")
+}
+func (UnimplementedSimpleShopServer) RenewAccessToken(context.Context, *RenewAccessTokenRequest) (*RenewAccessTokenResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method RenewAccessToken not implemented")
 }
 func (UnimplementedSimpleShopServer) mustEmbedUnimplementedSimpleShopServer() {}
 
@@ -521,6 +536,24 @@ func _SimpleShop_UpdateOrderStatus_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SimpleShop_RenewAccessToken_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RenewAccessTokenRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SimpleShopServer).RenewAccessToken(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SimpleShop_RenewAccessToken_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SimpleShopServer).RenewAccessToken(ctx, req.(*RenewAccessTokenRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // SimpleShop_ServiceDesc is the grpc.ServiceDesc for SimpleShop service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -583,6 +616,10 @@ var SimpleShop_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateOrderStatus",
 			Handler:    _SimpleShop_UpdateOrderStatus_Handler,
+		},
+		{
+			MethodName: "RenewAccessToken",
+			Handler:    _SimpleShop_RenewAccessToken_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

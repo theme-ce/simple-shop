@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package pb;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/theme-ce/simple-shop/pb";
+
+// Renew access token
+message RenewAccessTokenRequest {
+    string RefreshToken = 1;
+}
+
+message RenewAccessTokenResponse {
+    string AccessToken = 1;
+    google.protobuf.Timestamp AccessTokenExpiredAt = 2;
+}
