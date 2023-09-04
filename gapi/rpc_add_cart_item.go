@@ -2,9 +2,7 @@ package gapi
 
 import (
 	"context"
-	"errors"
 
-	"github.com/jackc/pgx/v5"
 	db "github.com/theme-ce/simple-shop/db/sqlc"
 	"github.com/theme-ce/simple-shop/pb"
 	"google.golang.org/grpc/codes"
@@ -26,43 +24,22 @@ func (server *Server) AddCartItem(ctx context.Context, req *pb.AddCartItemReques
 		return nil, status.Errorf(codes.PermissionDenied, "cannot add item to other user's cart: %s", err)
 	}
 
-	arg := db.GetCartDetailParams{
-		CartID:    req.GetCartId(),
-		ProductID: req.GetProductId(),
+	arg := db.AddCartItemTxParams{
+		CartId:    req.GetCartId(),
+		ProductId: req.GetProductId(),
+		Quantity:  req.GetQuantityAdded(),
 	}
 
-	cartDetail, err := server.store.GetCartDetail(ctx, arg)
+	cartDetail, err := server.store.AddCartItemTx(ctx, arg)
 	if err != nil {
-		if errors.Is(err, pgx.ErrNoRows) {
-			createCartDetailArg := db.CreateCartDetailParams{
-				CartID:        req.GetCartId(),
-				ProductID:     req.GetProductId(),
-				QuantityAdded: req.GetQuantityAdded(),
-			}
-
-			cartDetail, err = server.store.CreateCartDetail(ctx, createCartDetailArg)
-			if err != nil {
-				return nil, status.Errorf(codes.Internal, "failed to create cart detail for product id: %d: %s", arg.ProductID, err)
-			}
-		}
-		return nil, status.Errorf(codes.Internal, "failed to get cart detail: %s", err)
-	} else {
-		updateCartDetailArg := db.UpdateCartDetailParams{
-			QuantityAdded: cartDetail.QuantityAdded + req.GetQuantityAdded(),
-			CartID:        req.GetCartId(),
-			ProductID:     req.GetProductId(),
-		}
-		cartDetail, err = server.store.UpdateCartDetail(ctx, updateCartDetailArg)
-		if err != nil {
-			return nil, status.Errorf(codes.Internal, "failed to update cart detail: %s", err)
-		}
+		return nil, err
 	}
 
 	rsp := &pb.AddCartItemResponse{
 		Success:       true,
-		CartId:        cartDetail.CartID,
-		ProductId:     cartDetail.ProductID,
-		QuantityAdded: cartDetail.QuantityAdded,
+		CartId:        cartDetail.CartId,
+		ProductId:     cartDetail.ProductId,
+		QuantityAdded: cartDetail.Quantity,
 	}
 	return rsp, nil
 }

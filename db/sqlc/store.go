@@ -10,6 +10,7 @@ type Store interface {
 	Querier
 	CreateUserTx(ctx context.Context, arg CreateUserTxParams) (CreateUserTxResult, error)
 	CreateOrderTx(ctx context.Context, arg CreateOrderTxParams) (CreateOrderTxResult, error)
+	AddCartItemTx(ctx context.Context, req AddCartItemTxParams) (AddCartItemTxResponse, error)
 }
 
 type SQLStore struct {
