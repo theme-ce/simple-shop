@@ -47,5 +47,9 @@ db_schema:
 
 mock:
 	mockgen -package mockdb -destination db/mock/store.go github.com/theme-ce/simple-shop/db/sqlc Store
+	mockgen -package mocktoken -destination token/mock/maker.go github.com/theme-ce/simple-shop/token Maker
 
-.PHONY: postgres createdb dropdb new_migration migrateup migrateup1 migratedown migratedown1 proto sqlc db_doc db_schema mock
+test:
+	go test -v -cover -short ./...
+
+.PHONY: postgres createdb dropdb new_migration migrateup migrateup1 migratedown migratedown1 proto sqlc db_doc db_schema mock test
