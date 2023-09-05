@@ -65,6 +65,11 @@ Start the server
 make server
 ```
 
+Test
+```bash
+make test
+```
+
 ### Database Schema
 The database schema is available for public viewing at [Dbdocs](https://dbdocs.io/thaithian1999/simple_shop).
 
