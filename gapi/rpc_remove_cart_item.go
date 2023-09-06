@@ -15,18 +15,18 @@ func (server *Server) RemoveCartItem(ctx context.Context, req *pb.RemoveCartItem
 		return nil, unauthenticatedError(err)
 	}
 
-	cart, err := server.store.GetCartByID(ctx, int64(req.GetCartId()))
+	cart, err := server.store.GetCartByID(ctx, req.GetCartId())
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "failed to get cart: %s", err)
 	}
 
 	if authPayload.Username != cart.Username {
-		return nil, status.Errorf(codes.PermissionDenied, "cannot add item to other user's cart: %s", err)
+		return nil, status.Errorf(codes.PermissionDenied, "cannot remove item from other user's cart: %s", err)
 	}
 
 	arg := db.DeleteCartDetailParams{
-		CartID:    int64(req.GetCartId()),
-		ProductID: int64(req.GetProductId()),
+		CartID:    req.GetCartId(),
+		ProductID: req.GetProductId(),
 	}
 
 	err = server.store.DeleteCartDetail(ctx, arg)

@@ -16,7 +16,7 @@ func (server *Server) UpdateCartItemQuantity(ctx context.Context, req *pb.Update
 		return nil, unauthenticatedError(err)
 	}
 
-	cart, err := server.store.GetCartByID(ctx, int64(req.GetCartId()))
+	cart, err := server.store.GetCartByID(ctx, req.GetCartId())
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "failed to get cart: %s", err)
 	}

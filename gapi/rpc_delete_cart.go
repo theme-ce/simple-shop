@@ -4,11 +4,18 @@ import (
 	"context"
 
 	"github.com/theme-ce/simple-shop/pb"
+	"github.com/theme-ce/simple-shop/val"
+	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
 
 func (server *Server) DeleteCart(ctx context.Context, req *pb.DeleteCartRequest) (*pb.DeleteCartResponse, error) {
+	violations := validateDeleteCartRequest(req)
+	if violations != nil {
+		return nil, invalidArgumentError(violations)
+	}
+
 	authPayload, err := server.authorizeUser(ctx)
 	if err != nil {
 		return nil, unauthenticatedError(err)
@@ -27,4 +34,12 @@ func (server *Server) DeleteCart(ctx context.Context, req *pb.DeleteCartRequest)
 		Success: true,
 	}
 	return rsp, nil
+}
+
+func validateDeleteCartRequest(req *pb.DeleteCartRequest) (violations []*errdetails.BadRequest_FieldViolation) {
+	if err := val.ValidateUsername(req.GetUsername()); err != nil {
+		violations = append(violations, fieldViolation("username", err))
+	}
+
+	return violations
 }
