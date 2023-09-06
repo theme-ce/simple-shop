@@ -75,3 +75,6 @@ The database schema is available for public viewing at [Dbdocs](https://dbdocs.i
 
 ### API Documentation
 Once the server is running, the API documentation can be accessed through Swagger UI at http://localhost:8080/swagger.
+
+### Unit Testing with Gomock
+This project uses [gomock](https://github.com/golang/mock) for creating mock objects and assertions in the unit tests. Gomock provides a flexible and convenient way to add mock testing to your Golang application.
